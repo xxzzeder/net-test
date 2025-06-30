@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>LibreSpeed Test</title>
+  <link rel="shortcut icon" href="favicon.ico">
+  <script src="speedtest.js"></script>
+</head>
+<body>
+  <h1>Internet Speed Test</h1>
+  <div id="interface"></div>
+  <script>
+    // Initialize test; backend path: ./backend
+    Speedtest({
+      urlDownload: "/backend/garbage.php?size=",
+      urlUpload: "/backend/upload.php",
+      urlPing:    "/backend/ping.php",
+      language:   "en",
+      threads:    4,
+      singletest: false
+    }).onupdate = function(data) {
+      document.getElementById("interface").innerHTML = `
+        Ping: ${data.ping} ms • DL: ${(data.dlStatus/125000).toFixed(2)} Mbps • UL: ${(data.ulStatus/125000).toFixed(2)} Mbps
+      `;
+    };
+  </script>
+</body>
+</html>
